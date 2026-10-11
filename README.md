@@ -30,5 +30,11 @@ git clone https://github.com/MarceloIsmael21/TC5031.10_ProyectoIntegrador
 python -m venv .venv
 .venv/Scripts/Activate.ps1
 
-3. Instalar requerimientos
+3. Instalar python (si ya cuentas con él en tu entorno, no es necesario)
+Instala python desde la web
+Instala el plugin de python en vs code
+Habilita el ipykernel
+pip install ipykernel -U -force-reinstall
+
+4. Instalar requerimientos
 pip install -r requirements.txt
