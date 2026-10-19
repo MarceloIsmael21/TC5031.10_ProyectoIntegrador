@@ -6,3 +6,4 @@ matplotlib
 Pillow
 scikit-learn
 seaborn
+torch torchvision --index-url https://download.pytorch.org/whl/cu126
