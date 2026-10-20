@@ -4,7 +4,7 @@ from pathlib import Path
 from datetime import datetime
 
 # Configuración
-CAMERA_INDEX = 1
+CAMERA_INDEX = 0
 COOLDOWN_SECONDS = 5.0
 OUTPUT_DIR = Path("DataCapture/raw")
 
