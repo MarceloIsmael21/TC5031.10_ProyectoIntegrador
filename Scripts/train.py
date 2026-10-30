@@ -392,5 +392,5 @@ for box, score, label in zip(pred_boxes, pred_scores, pred_labels):
     })
 
 detections_df = pd.DataFrame(detections)
-print("Imagen:", test_name)
-display(detections_df)
+#print("Imagen:", test_name)
+#display(detections_df)
