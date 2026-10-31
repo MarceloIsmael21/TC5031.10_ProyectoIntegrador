@@ -18,9 +18,13 @@ from torch.utils.data import DataLoader
 # ------------------------------------------------------------------
 # 1. Configuración: ingresa las ubicaciones al ejecutar la celda
 # ------------------------------------------------------------------
-IMAGE_DIR= Path("../DataCapture/raw")
-ANNOTATIONS_CSV= Path("../DataCapture/anotaciones.csv")
-REVIEWED_CSV= Path("../DataCapture/revisado.csv")
+current = Path.cwd()
+#IMAGE_DIR= Path("../DataCapture/raw")
+#ANNOTATIONS_CSV= Path("../DataCapture/anotaciones.csv")
+#REVIEWED_CSV= Path("../DataCapture/revisado.csv")
+IMAGE_DIR= current / "DataCapture/raw"
+ANNOTATIONS_CSV= current / "DataCapture/anotaciones.csv"
+REVIEWED_CSV= current / "DataCapture/revisado.csv"
 
 #IMAGE_DIR = Path(input("Carpeta de imágenes originales completas: ").strip())
 #ANNOTATIONS_CSV = Path(input("CSV con imagen, x, y, w, h: ").strip())
@@ -225,7 +229,8 @@ model.to(device)
 # ------------------------------------------------------------------
 train_losses = []
 val_losses = []
-MODELS_DIR = Path("../Models")
+#MODELS_DIR = Path("../Models")
+MODELS_DIR = current / "Models"
 MODELS_DIR.mkdir(parents=True, exist_ok=True)
 # DataLoader de validación
 val_dataset = AccessoryDataset(val_df, annotations, IMAGE_DIR)
@@ -241,7 +246,7 @@ val_loader = DataLoader(
 best_val_loss = float("inf")
 best_model_state = None
 
-EPOCH3_PATH = MODELS_DIR / "best_fit"
+EPOCH3_PATH = MODELS_DIR / "best_fit.pth"
 BEST_PATH = MODELS_DIR / "fasterrcnn_accesorio_best_val.pth"
 
 optimizer = torch.optim.SGD(
@@ -345,10 +350,7 @@ if best_model_state is not None:
 # ------------------------------------------------------------------
 # 7. Guardar el modelo entrenado
 # ------------------------------------------------------------------
-
-checkpoint_name = input(
-    "Nombre del archivo para guardar el modelo: "
-).strip()
+checkpoint_name="train.pth"
 
 if not checkpoint_name:
     checkpoint_name = "fasterrcnn_accesorio.pth"
@@ -392,5 +394,3 @@ for box, score, label in zip(pred_boxes, pred_scores, pred_labels):
     })
 
 detections_df = pd.DataFrame(detections)
-#print("Imagen:", test_name)
-#display(detections_df)
