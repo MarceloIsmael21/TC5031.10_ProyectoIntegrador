@@ -1,8 +1,10 @@
 from pathlib import Path
 import os
 
-current_dir = os.getcwd()
-model_path = os.path.join(current_dir, "Models", "best_fit")
+#current_dir = os.getcwd()
+current_dir = Path.cwd()
+model_path = current_dir / "Models/best_fit.pth"
+#model_path = os.path.join(current_dir, "Models", "best_fit")
 #model_path = os.path.abspath(model_path)  # Normalize to absolute path
 
 import torch
@@ -57,6 +59,9 @@ SCORE_THRESHOLD = 0.50    # Usa el umbral que seleccionaste en validación.
 MAX_AREA_FRACTION = 0.35  # Usa tu filtro elegido; pon None para desactivarlo.
 
 cap = cv2.VideoCapture(CAMERA_INDEX)
+# Configurar resolución deseada
+cap.set(cv2.CAP_PROP_FRAME_WIDTH, 1920)  # Ancho
+cap.set(cv2.CAP_PROP_FRAME_HEIGHT, 1080) # Alto
 
 if not cap.isOpened():
     raise RuntimeError(

@@ -318,7 +318,7 @@ for epoch in range(EPOCHS):
 
     epoch_num = epoch + 1  # Python cuenta desde 0; la época visible empieza en 1.
 
-    if epoch_num == 3:
+    if epoch_num == 5:
         torch.save(
             {
                 "epoch": epoch_num,
@@ -328,7 +328,7 @@ for epoch in range(EPOCHS):
             },
             EPOCH3_PATH
         )
-        print(f"Checkpoint de época 3 guardado: {EPOCH3_PATH.name}")
+        print(f"Checkpoint de época {epoch_num} guardado: {EPOCH3_PATH.name}")
 
     scheduler.step()
 
@@ -350,7 +350,7 @@ if best_model_state is not None:
 # ------------------------------------------------------------------
 # 7. Guardar el modelo entrenado
 # ------------------------------------------------------------------
-checkpoint_name="train.pth"
+checkpoint_name="Models/train.pth"
 
 if not checkpoint_name:
     checkpoint_name = "fasterrcnn_accesorio.pth"
