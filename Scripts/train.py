@@ -19,16 +19,9 @@ from torch.utils.data import DataLoader
 # 1. Configuración: ingresa las ubicaciones al ejecutar la celda
 # ------------------------------------------------------------------
 current = Path.cwd()
-#IMAGE_DIR= Path("../DataCapture/raw")
-#ANNOTATIONS_CSV= Path("../DataCapture/anotaciones.csv")
-#REVIEWED_CSV= Path("../DataCapture/revisado.csv")
 IMAGE_DIR= current / "DataCapture/raw"
 ANNOTATIONS_CSV= current / "DataCapture/anotaciones.csv"
 REVIEWED_CSV= current / "DataCapture/revisado.csv"
-
-#IMAGE_DIR = Path(input("Carpeta de imágenes originales completas: ").strip())
-#ANNOTATIONS_CSV = Path(input("CSV con imagen, x, y, w, h: ").strip())
-#REVIEWED_CSV = Path(input("CSV con una fila por imagen revisada: ").strip())
 
 # Si tus columnas tienen otros nombres, cámbialos aquí.
 IMAGE_COL = "imagen"
@@ -179,6 +172,7 @@ class AccessoryDataset(Dataset):
             "boxes": boxes,
             "labels": labels,
             "image_id": torch.tensor([index], dtype=torch.int64),
+            "image_name": image_name,
         }
 
         # Convierte la imagen RGB a tensor float en [0, 1].
@@ -273,7 +267,7 @@ for epoch in range(EPOCHS):
     for images, targets in train_loader:
         images = [image.to(device) for image in images]
         targets = [
-            {key: value.to(device) for key, value in target.items()}
+            {key: value.to(device) for key, value in target.items() if key != "image_name"}
             for target in targets
         ]
 
@@ -303,7 +297,7 @@ for epoch in range(EPOCHS):
         for images, targets in val_loader:
             images = [image.to(device) for image in images]
             targets = [
-                {key: value.to(device) for key, value in target.items()}
+                {key: value.to(device) for key, value in target.items() if key != "image_name"}
                 for target in targets
             ]
 
